@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - OSIS PMK ASPIRASI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: #3b82f6;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .message-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .message-card:hover {
+            border-left-color: #f59e0b;
+            background: linear-gradient(135deg, #eff6ff, #fef3c7);
+        }
+        
+        .reply-card {
+            border-left: 3px solid #10b981;
+            margin-left: 20px;
+            background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+        }
+        
+        .anonymous-toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .anonymous-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .mobile-menu.open {
+                transform: translateX(0);
+            }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .warning-text {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .success-animation {
+            animation: successPulse 0.6s ease-in-out;
+        }
+        
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-yellow-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="relative w-12 h-12 bg-gradient-to-br from-blue-600 via-blue-700 to-yellow-600 rounded-xl shadow-lg transform rotate-3 hover:rotate-0 transition-all duration-300">
+                        <div class="absolute inset-0.5 bg-white rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white shadow-sm"></div>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">OSIS PMK</h1>
+                        <p class="text-sm bg-gradient-to-r from-blue-600 to-yellow-600 bg-clip-text text-transparent font-medium">ASPIRASI</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Beranda</a>
+                    <a href="about2.html" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Tentang Kami</a>
+                    <a href="produk2.html" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Produk</a>
+                    <a href="kontak2.html" class="nav-link text-blue-600 font-medium">Kontak</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="mobile-menu md:hidden fixed top-0 left-0 w-64 h-full bg-white shadow-xl z-50">
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-8">
+                        <span class="text-lg font-bold text-gray-800">Menu</span>
+                        <button onclick="toggleMobileMenu()" class="text-gray-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <a href="index.html" class="block text-gray-700 hover:text-blue-600 font-medium py-2" onclick="toggleMobileMenu()">Beranda</a>
+                        <a href="about2.html" class="block text-gray-700 hover:text-blue-600 font-medium py-2" onclick="toggleMobileMenu()">Tentang Kami</a>
+                        <a href="produk2.html" class="block text-gray-700 hover:text-blue-600 font-medium py-2" onclick="toggleMobileMenu()">Produk</a>
+                        <a href="kontak2.html" class="block text-blue-600 font-medium py-2" onclick="toggleMobileMenu()">Kontak</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-600 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 fade-in">Hubungi Kami</h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto fade-in">Sampaikan aspirasi, saran, atau pertanyaan Anda kepada OSIS PMK ASPIRASI</p>
+            <div class="mt-8">
+                <a href="index.html" class="btn-primary px-8 py-3 rounded-full font-semibold inline-flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>Kembali ke Beranda</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-16">
+        <!-- Contact Forms Section -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-16">
+            <!-- Official Contact Form -->
+            <div class="card-hover bg-white rounded-2xl shadow-xl p-8 h-fit">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Kontak Resmi</h2>
+                        <p class="text-gray-600">Formulir kontak dengan identitas</p>
+                    </div>
+                </div>
+                
+                <form id="officialForm" onsubmit="submitOfficialForm(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Nama Lengkap *</label>
+                            <input type="text" id="officialName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Email *</label>
+                            <input type="email" id="officialEmail" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Kelas (Opsional)</label>
+                            <input type="text" id="officialClass" placeholder="Contoh: XII IPA 1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Kategori</label>
+                            <select id="officialCategory" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                <option value="saran">Saran</option>
+                                <option value="kritik">Kritik</option>
+                                <option value="pertanyaan">Pertanyaan</option>
+                                <option value="kerjasama">Kerjasama</option>
+                                <option value="lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Pesan *</label>
+                            <textarea id="officialMessage" required rows="5" placeholder="Sampaikan pesan Anda..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"></textarea>
+                            <div id="officialWarning" class="warning-text hidden">Pesan mengandung kata yang tidak pantas. Mohon gunakan bahasa yang sopan.</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary w-full py-3 rounded-lg font-medium mt-6">
+                        Kirim Pesan Resmi
+                    </button>
+                </form>
+            </div>
+
+            <!-- Anonymous Message Form -->
+            <div class="card-hover bg-white rounded-2xl shadow-xl p-8 h-fit">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Pesan Anonim</h2>
+                            <p class="text-gray-600">Kirim pesan tanpa identitas</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-sm text-gray-600">Anonim</span>
+                        <label class="anonymous-toggle">
+                            <input type="checkbox" id="anonymousToggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <form id="anonymousForm" onsubmit="submitAnonymousForm(event)">
+                    <div class="space-y-4">
+                        <div id="anonymousIdentity" class="hidden space-y-4">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Nama (Opsional)</label>
+                                <input type="text" id="anonymousName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Email (Opsional)</label>
+                                <input type="email" id="anonymousEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Pesan Anonim *</label>
+                            <textarea id="anonymousMessage" required rows="5" placeholder="Sampaikan pesan anonim Anda..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all resize-none"></textarea>
+                            <div id="anonymousWarning" class="warning-text hidden">Pesan mengandung kata yang tidak pantas. Mohon gunakan bahasa yang sopan.</div>
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-yellow-600 mt-0.5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                                <div class="text-sm text-yellow-800">
+                                    <p class="font-medium mb-1">Catatan Penting:</p>
+                                    <p>Meskipun pesan bersifat anonim untuk publik, admin tetap dapat melihat data internal untuk keperluan moderasi dan keamanan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-gold w-full py-3 rounded-lg font-medium mt-6 text-white">
+                        Kirim Pesan Anonim
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Contact Info & Map Section -->
+        <div class="grid lg:grid-cols-4 gap-8 mb-16">
+            <!-- Google Maps (75% width) -->
+            <div class="lg:col-span-3 card-hover bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col">
+                <div class="p-6 pb-0">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Lokasi Sekolah</h2>
+                            <p class="text-gray-600">Temukan kami di peta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 min-h-96">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.927927927927!2d107.3596306152583!3d-6.396034699999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6974679d1ab5cb%3A0xda6cf7b853a3a7df!2sSMK%20Pratama%20Mulya%20Karawang!5e0!3m2!1sid!2sid!4v1696224000000!5m2!1sid!2sid" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="p-4 bg-gray-50 border-t">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <span class="text-gray-700 font-medium">PMK ASPIRASI School</span>
+                        </div>
+                        <a href="https://maps.app.goo.gl/uoE3MN8T6ND2KDf3A" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-medium flex items-center space-x-1">
+                            <span>Buka di Google Maps</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information (25% width) -->
+            <div class="lg:col-span-1 flex flex-col">
+                <!-- Address Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl p-6 flex-1 mb-4">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Alamat</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-gray-700 leading-relaxed">Jl. Gono Tirtowidjojo<br>Ciampel<br>Karawang<br>Jawa Barat</p>
+                        <div class="flex items-center text-blue-600 text-sm">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="font-medium">Senin - Jumat<br>15:00 - 19:00 WIB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl p-6 flex-1 mb-4">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Telepon</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 font-medium">(021) 1234-5678</p>
+                        <p class="text-sm text-gray-600">Ext. 101 (OSIS)</p>
+                    </div>
+                </div>
+
+                <!-- Email Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-xl p-6 flex-1">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Email</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 font-medium">osis@pmkaspirasi.sch.id</p>
+                        <p class="text-sm text-gray-600">Respon dalam 24 jam</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="mb-16">
+            <div class="card-hover bg-white rounded-2xl shadow-xl p-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v3M7 4H5a1 1 0 00-1 1v16a1 1 0 001 1h14a1 1 0 001-1V5a1 1 0 00-1-1h-2M7 4h10M9 9h6m-6 4h6m-6 4h4"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Media Sosial & Kontak Cepat</h2>
+                        <p class="text-gray-600">Terhubung dengan kami melalui berbagai platform</p>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <a href="https://instagram.com/osis_pmk86" target="_blank" rel="noopener noreferrer" class="social-icon flex items-center space-x-4 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl hover:shadow-lg transition-all duration-300 border border-pink-100">
+                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-800 text-lg">Instagram</div>
+                            <div class="text-gray-600">@osis_pmk86</div>
+                            <div class="text-sm text-pink-600 font-medium">Ikuti untuk update terbaru</div>
+                        </div>
+                    </a>
+                    
+                    <a href="mailto:osis@pmkaspirasi.sch.id" class="social-icon flex items-center space-x-4 p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl hover:shadow-lg transition-all duration-300 border border-blue-100">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-800 text-lg">Email Resmi</div>
+                            <div class="text-gray-600">osis@pmkaspirasi.sch.id</div>
+                            <div class="text-sm text-blue-600 font-medium">Kirim email langsung</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://wa.me/6285692484958" target="_blank" rel="noopener noreferrer" class="social-icon flex items-center space-x-4 p-6 bg-gradient-to-r from-green-50 to-green-100 rounded-xl hover:shadow-lg transition-all duration-300 border border-green-100">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.516"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-800 text-lg">WhatsApp</div>
+                            <div class="text-gray-600">+62 856-9248-4958</div>
+                            <div class="text-sm text-green-600 font-medium">Chat langsung dengan kami</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Section -->
+        <div class="mt-16">
+            <div class="card-hover bg-white rounded-2xl shadow-xl p-8">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Pesan & Komentar</h2>
+                        <p class="text-gray-600 mt-2">Lihat pesan dari siswa dan berikan tanggapan</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="filterMessages('all')" class="filter-btn active px-4 py-2 rounded-lg bg-blue-600 text-white font-medium">Semua</button>
+                        <button onclick="filterMessages('official')" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium">Resmi</button>
+                        <button onclick="filterMessages('anonymous')" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium">Anonim</button>
+                    </div>
+                </div>
+                
+                <div id="messagesContainer" class="space-y-6">
+                    <!-- Messages will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-8 text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Pesan Terkirim!</h3>
+            <p id="successMessage" class="text-gray-600 mb-6">Terima kasih atas pesan Anda. Kami akan segera merespons.</p>
+            <button onclick="closeSuccessModal()" class="btn-primary px-6 py-2 rounded-lg font-medium">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="relative w-10 h-10 bg-gradient-to-br from-blue-600 via-blue-700 to-yellow-600 rounded-lg shadow-lg">
+                            <div class="absolute inset-0.5 bg-white rounded-md flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                                    <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-yellow-400 rounded-full border border-gray-800"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold">OSIS PMK ASPIRASI</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">Berkarya bersama membangun masa depan yang gemilang melalui pendidikan dan kreativitas.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Menu Utama</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="index.html" class="hover:text-blue-400 transition-colors">Beranda</a></li>
+                        <li><a href="about2.html" class="hover:text-blue-400 transition-colors">Tentang Kami</a></li>
+                        <li><a href="produk2.html" class="hover:text-blue-400 transition-colors">Produk</a></li>
+                        <li><a href="kontak2.html" class="hover:text-blue-400 transition-colors">Kontak</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Kontak Cepat</h4>
+                    <div class="space-y-2 text-gray-300">
+                        <p>📧 osis@pmkaspirasi.sch.id</p>
+                        <p>📱 (021) 1234-5678</p>
+                        <p>📍Karawang </p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 OSIS PMK ASPIRASI. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Blocked words list
+        const blockedWords = [
+            'bodoh', 'tolol', 'goblok', 'anjing', 'babi', 'bangsat', 'kampret', 'sialan', 
+            'tai', 'sial', 'brengsek', 'keparat', 'bajingan', 'kontol', 'memek', 'ngentot',
+            'fuck', 'shit', 'damn', 'bitch', 'asshole', 'stupid', 'idiot', 'moron', 'anjiang',
+            'setan', 'jembut', 'ga guna', 'B2', 'babi ngepet', 'monyet', 'crot'
+        ];
+
+        let messages = [
+            {
+                id: 1,
+                type: 'official',
+                name: 'Ahmad Rizki',
+                email: 'ahmad.rizki@student.pmk.sch.id',
+                class: 'XI IPA 2',
+                category: 'saran',
+                message: 'Saya ingin menyarankan agar OSIS mengadakan lebih banyak kegiatan olahraga untuk siswa. Mungkin bisa diadakan turnamen futsal atau basket antar kelas.',
+                timestamp: new Date('2024-01-15T10:30:00'),
+                replies: [
+                    {
+                        id: 101,
+                        author: 'Admin OSIS',
+                        message: 'Terima kasih atas sarannya, Ahmad! Ide turnamen olahraga sangat bagus. Kami akan diskusikan dengan tim dan rencanakan untuk semester ini.',
+                        timestamp: new Date('2024-01-15T14:20:00')
+                    }
+                ]
+            },
+            {
+                id: 2,
+                type: 'anonymous',
+                message: 'Tolong dong kantin sekolah diperbaiki menunya. Makanannya itu-itu aja dan kadang kurang higienis. Semoga bisa diperhatikan ya.',
+                timestamp: new Date('2024-01-14T09:15:00'),
+                replies: []
+            },
+            {
+                id: 3,
+                type: 'official',
+                name: 'Sari Dewi',
+                email: 'sari.dewi@student.pmk.sch.id',
+                class: 'XII IPS 1',
+                category: 'pertanyaan',
+                message: 'Kapan ya pendaftaran untuk program beasiswa OSIS dibuka? Saya tertarik untuk mendaftar tapi belum ada info resminya.',
+                timestamp: new Date('2024-01-13T16:45:00'),
+                replies: [
+                    {
+                        id: 301,
+                        author: 'Admin OSIS',
+                        message: 'Halo Sari! Pendaftaran beasiswa OSIS akan dibuka tanggal 1 Februari 2024. Info lengkap akan kami umumkan di website dan media sosial resmi.',
+                        timestamp: new Date('2024-01-13T18:30:00')
+                    },
+                    {
+                        id: 302,
+                        author: 'Sari Dewi',
+                        message: 'Terima kasih infonya! Apakah ada syarat khusus yang perlu dipersiapkan?',
+                        timestamp: new Date('2024-01-14T07:20:00')
+                    }
+                ]
+            }
+        ];
+
+        let messageIdCounter = 4;
+        let replyIdCounter = 400;
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('open');
+        }
+
+        // Anonymous toggle
+        document.getElementById('anonymousToggle').addEventListener('change', function() {
+            const identitySection = document.getElementById('anonymousIdentity');
+            if (this.checked) {
+                identitySection.classList.add('hidden');
+            } else {
+                identitySection.classList.remove('hidden');
+            }
+        });
+
+        // Check for blocked words
+        function containsBlockedWords(text) {
+            const lowerText = text.toLowerCase();
+            return blockedWords.some(word => lowerText.includes(word));
+        }
+
+        // Submit official form
+        function submitOfficialForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('officialName').value;
+            const email = document.getElementById('officialEmail').value;
+            const className = document.getElementById('officialClass').value;
+            const category = document.getElementById('officialCategory').value;
+            const message = document.getElementById('officialMessage').value;
+            const warningDiv = document.getElementById('officialWarning');
+            
+            // Check for blocked words
+            if (containsBlockedWords(message)) {
+                warningDiv.classList.remove('hidden');
+                return;
+            } else {
+                warningDiv.classList.add('hidden');
+            }
+            
+            // Add message to array
+            const newMessage = {
+                id: messageIdCounter++,
+                type: 'official',
+                name: name,
+                email: email,
+                class: className,
+                category: category,
+                message: message,
+                timestamp: new Date(),
+                replies: []
+            };
+            
+            messages.unshift(newMessage);
+            
+            // Reset form
+            document.getElementById('officialForm').reset();
+            
+            // Show success modal
+            showSuccessModal('Pesan resmi Anda telah terkirim dan akan ditampilkan setelah moderasi.');
+            
+            // Refresh messages display
+            displayMessages();
+        }
+
+        // Submit anonymous form
+        function submitAnonymousForm(event) {
+            event.preventDefault();
+            
+            const isAnonymous = document.getElementById('anonymousToggle').checked;
+            const name = isAnonymous ? null : document.getElementById('anonymousName').value;
+            const email = isAnonymous ? null : document.getElementById('anonymousEmail').value;
+            const message = document.getElementById('anonymousMessage').value;
+            const warningDiv = document.getElementById('anonymousWarning');
+            
+            // Check for blocked words
+            if (containsBlockedWords(message)) {
+                warningDiv.classList.remove('hidden');
+                return;
+            } else {
+                warningDiv.classList.add('hidden');
+            }
+            
+            // Add message to array
+            const newMessage = {
+                id: messageIdCounter++,
+                type: 'anonymous',
+                name: name,
+                email: email,
+                message: message,
+                timestamp: new Date(),
+                replies: [],
+                // Internal data for admin (not shown publicly)
+                internalData: {
+                    ip: '192.168.1.100', // Simulated
+                    userAgent: navigator.userAgent,
+                    timestamp: new Date().toISOString()
+                }
+            };
+            
+            messages.unshift(newMessage);
+            
+            // Reset form
+            document.getElementById('anonymousForm').reset();
+            
+            // Show success modal
+            showSuccessModal('Pesan anonim Anda telah terkirim dan akan ditampilkan setelah moderasi.');
+            
+            // Refresh messages display
+            displayMessages();
+        }
+
+        // Show success modal
+        function showSuccessModal(message) {
+            document.getElementById('successMessage').textContent = message;
+            document.getElementById('successModal').classList.add('show');
+        }
+
+        // Close success modal
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('show');
+        }
+
+        // Filter messages
+        function filterMessages(type) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('active', 'bg-blue-600', 'text-white');
+            
+            displayMessages(type);
+        }
+
+        // Display messages
+        function displayMessages(filter = 'all') {
+            const container = document.getElementById('messagesContainer');
+            let filteredMessages = messages;
+            
+            if (filter !== 'all') {
+                filteredMessages = messages.filter(msg => msg.type === filter);
+            }
+            
+            if (filteredMessages.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Belum ada pesan untuk kategori ini.</p>';
+                return;
+            }
+            
+            container.innerHTML = filteredMessages.map(msg => `
+                <div class="message-card bg-gray-50 rounded-xl p-6" data-message-id="${msg.id}">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 ${msg.type === 'official' ? 'bg-blue-600' : 'bg-yellow-600'} rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold">${msg.type === 'official' ? (msg.name ? msg.name.charAt(0).toUpperCase() : 'U') : '?'}</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <h4 class="font-bold text-gray-800">
+                                        ${msg.type === 'official' ? msg.name : 'Pengirim Anonim'}
+                                    </h4>
+                                    <span class="px-2 py-1 text-xs rounded-full ${msg.type === 'official' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'}">
+                                        ${msg.type === 'official' ? 'Resmi' : 'Anonim'}
+                                    </span>
+                                </div>
+                                <div class="text-sm text-gray-500">
+                                    ${msg.type === 'official' && msg.class ? `${msg.class} • ` : ''}
+                                    ${msg.timestamp.toLocaleDateString('id-ID', { 
+                                        year: 'numeric', 
+                                        month: 'long', 
+                                        day: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                        ${msg.type === 'official' && msg.category ? `
+                            <span class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 capitalize">
+                                ${msg.category}
+                            </span>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-700 leading-relaxed">${msg.message}</p>
+                    </div>
+                    
+                    <!-- Replies -->
+                    <div class="replies-section">
+                        ${msg.replies.map(reply => `
+                            <div class="reply-card p-4 rounded-lg mt-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                                            <span class="text-white text-sm font-bold">${reply.author.charAt(0)}</span>
+                                        </div>
+                                        <span class="font-medium text-gray-800">${reply.author}</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500">
+                                        ${reply.timestamp.toLocaleDateString('id-ID', { 
+                                            month: 'short', 
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        })}
+                                    </span>
+                                </div>
+                                <p class="text-gray-700 text-sm">${reply.message}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <!-- Reply Form -->
+                    ${msg.replies.length < 10 ? `
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <form onsubmit="submitReply(event, ${msg.id})" class="flex space-x-3">
+                                <input type="text" placeholder="Tulis balasan..." required 
+                                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                <button type="submit" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium">
+                                    Balas
+                                </button>
+                            </form>
+                        </div>
+                    ` : `
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <p class="text-sm text-gray-500 italic">Maksimal 10 balasan telah tercapai untuk pesan ini.</p>
+                        </div>
+                    `}
+                </div>
+            `).join('');
+        }
+
+        // Submit reply
+        function submitReply(event, messageId) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const replyText = form.querySelector('input').value.trim();
+            
+            // Check for blocked words
+            if (containsBlockedWords(replyText)) {
+                alert('Balasan mengandung kata yang tidak pantas. Mohon gunakan bahasa yang sopan.');
+                return;
+            }
+            
+            // Find the message
+            const messageIndex = messages.findIndex(msg => msg.id === messageId);
+            if (messageIndex === -1) return;
+            
+            // Check if replies limit reached
+            if (messages[messageIndex].replies.length >= 10) {
+                alert('Maksimal 10 balasan telah tercapai untuk pesan ini.');
+                return;
+            }
+            
+            // Add reply
+            const newReply = {
+                id: replyIdCounter++,
+                author: 'Admin OSIS', // In real app, this would be the logged-in user
+                message: replyText,
+                timestamp: new Date()
+            };
+            
+            messages[messageIndex].replies.push(newReply);
+            
+            // Reset form
+            form.reset();
+            
+            // Refresh display
+            displayMessages();
+            
+            // Show success notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            notification.textContent = 'Balasan berhasil ditambahkan!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            const successModal = document.getElementById('successModal');
+            
+            if (event.target === successModal) {
+                successModal.classList.remove('show');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayMessages();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'986ba41912020d3d',t:'MTc1OTE1MDU5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
