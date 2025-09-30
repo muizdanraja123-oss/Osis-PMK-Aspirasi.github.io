@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIS PMK ASPIRASI - Beranda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #fbbf24 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .slide {
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #1e40af, #1e3a8a);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #3b82f6, #fbbf24);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .slider-progress {
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            transition: width 5s linear;
+        }
+        
+        .slider-progress.active {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<nav class="glass-effect fixed w-full top-0 z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent hover:from-blue-700 hover:to-yellow-600 transition-all duration-300">
+                        OSIS PMK ASPIRASI
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-page="index">
+                        <i class="fas fa-home mr-1"></i>Beranda
+                    </a>
+                    <a href="about2.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-page="about">
+                        <i class="fas fa-users mr-1"></i>Tentang Kami
+                    </a>
+                    <a href="produk2.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-page="produk">
+                        <i class="fas fa-shopping-bag mr-1"></i>Produk
+                    </a>
+                    <a href="kontak2.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-page="kontak">
+                        <i class="fas fa-envelope mr-1"></i>Kontak
+                    </a>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden lg:flex items-center space-x-2">
+                    <a href="kontak2.html#anonymousForm" class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-comment-dots mr-1"></i>Aspirasi
+                    </a>
+                </div>
+                
+                <button id="cartButton" onclick="toggleCart()" class="relative text-gray-700 hover:text-blue-600 transition-colors hidden">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cartBadge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                </button>
+                
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t shadow-lg">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="mobile-nav-link block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" data-page="index">
+                <i class="fas fa-home mr-2"></i>Beranda
+            </a>
+            <a href="about2.html" class="mobile-nav-link block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" data-page="about">
+                <i class="fas fa-users mr-2"></i>Tentang Kami
+            </a>
+            <a href="produk2.html" class="mobile-nav-link block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" data-page="produk">
+                <i class="fas fa-shopping-bag mr-2"></i>Produk
+            </a>
+            <a href="kontak2.html" class="mobile-nav-link block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" data-page="kontak">
+                <i class="fas fa-envelope mr-2"></i>Kontak
+            </a>
+            
+            <div class="border-t pt-3 mt-3">
+                <a href="kontak.html2#anonymousForm" class="block mx-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-3 rounded-lg text-center font-medium">
+                    <i class="fas fa-comment-dots mr-2"></i>Kirim Aspirasi
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .nav-link {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(45deg, #3b82f6, #fbbf24);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    
+    .nav-link.active {
+        color: #3b82f6 !important;
+        font-weight: 600;
+    }
+    
+    .nav-link.active::after {
+        width: 100%;
+    }
+    
+    .mobile-nav-link.active {
+        color: #3b82f6 !important;
+        background-color: #eff6ff !important;
+        font-weight: 600;
+    }
+    
+    .page-transition {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+    }
+    
+    .page-transition.loaded {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeNavigation();
+        initializePageTransition();
+    });
+
+    function initializeNavigation() {
+        const currentPage = getCurrentPage();
+        
+        setActiveNavItem(currentPage);
+        
+        toggleCartButton(currentPage);
+        
+        addSmoothScrolling();
+    }
+
+    function getCurrentPage() {
+        const path = window.location.pathname;
+        const page = path.split('/').pop().replace('.html', '') || 'index';
+        return page;
+    }
+
+    function setActiveNavItem(currentPage) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+        
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Toggle cart button visibility
+    function toggleCartButton(currentPage) {
+        const cartButton = document.getElementById('cartButton');
+        if (cartButton) {
+            if (currentPage === 'produk') {
+                cartButton.classList.remove('hidden');
+            } else {
+                cartButton.classList.add('hidden');
+            }
+        }
+    }
+
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('hidden');
+        
+        if (!mobileMenu.classList.contains('hidden')) {
+            document.addEventListener('click', closeMobileMenuOutside);
+        } else {
+            document.removeEventListener('click', closeMobileMenuOutside);
+        }
+    }
+
+    function closeMobileMenuOutside(event) {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuButton = event.target.closest('button[onclick="toggleMobileMenu()"]');
+        
+        if (!mobileMenu.contains(event.target) && !menuButton) {
+            mobileMenu.classList.add('hidden');
+            document.removeEventListener('click', closeMobileMenuOutside);
+        }
+    }
+
+    function addSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+    function initializePageTransition() {
+        const mainContent = document.querySelector('main') || document.body;
+        mainContent.classList.add('page-transition');
+        
+        setTimeout(() => {
+            mainContent.classList.add('loaded');
+        }, 100);
+    }
+
+    
+    if (typeof toggleCart === 'undefined') {
+        function toggleCart() {
+            console.log('Cart functionality not available on this page');
+        }
+    }
+
+    function sendCrossPageMessage(type, data) {
+        localStorage.setItem('pmk_message', JSON.stringify({
+            type: type,
+            data: data,
+            timestamp: Date.now()
+        }));
+    }
+
+    function receiveCrossPageMessage() {
+        const message = localStorage.getItem('pmk_message');
+        if (message) {
+            const parsed = JSON.parse(message);
+            if (Date.now() - parsed.timestamp < 5000) {
+                return parsed;
+            }
+        }
+        return null;
+    }
+
+    function generateBreadcrumb() {
+        const currentPage = getCurrentPage();
+        const breadcrumbContainer = document.querySelector('.breadcrumb-container');
+        
+        if (breadcrumbContainer) {
+            const pageNames = {
+                'index': 'Beranda',
+                'about': 'Tentang Kami',
+                'produk': 'Produk & Program',
+                'kontak': 'Kontak'
+            };
+            
+            const breadcrumb = `
+                <nav class="flex items-center space-x-2 text-sm">
+                    <a href="index.html" class="text-blue-600 hover:text-blue-800 transition-colors">
+                        <i class="fas fa-home mr-1"></i>Beranda
+                    </a>
+                    ${currentPage !== 'index' ? `
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                        <span class="text-gray-600">${pageNames[currentPage] || 'Halaman'}</span>
+                    ` : ''}
+                </nav>
+            `;
+            
+            breadcrumbContainer.innerHTML = breadcrumb;
+        }
+    }
+
+    function initializeSearch() {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase();
+                performSearch(query);
+            });
+        }
+    }
+
+    function performSearch(query) {
+        console.log('Searching for:', query);
+    }
+
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `fixed top-20 right-4 px-6 py-4 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
+        
+        const colors = {
+            'success': 'bg-green-600 text-white',
+            'error': 'bg-red-600 text-white',
+            'warning': 'bg-yellow-600 text-white',
+            'info': 'bg-blue-600 text-white'
+        };
+        
+        notification.className += ` ${colors[type] || colors.info}`;
+        
+        const icons = {
+            'success': 'fas fa-check-circle',
+            'error': 'fas fa-exclamation-circle',
+            'warning': 'fas fa-exclamation-triangle',
+            'info': 'fas fa-info-circle'
+        };
+        
+        notification.innerHTML = `
+            <div class="flex items-center">
+                <i class="${icons[type] || icons.info} mr-3"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 300);
+        }, 5000);
+    }
+
+    function trackPageView() {
+        const currentPage = getCurrentPage();
+        console.log('Page view tracked:', currentPage);
+    }
+
+    trackPageView();
+</script>
+
+    <section class="relative h-screen overflow-hidden">
+        <div class="slider-container relative h-full">
+            <div class="slide active gradient-bg flex items-center justify-center">
+                <div class="text-center text-white px-4 max-w-4xl mx-auto">
+                    <div class="floating-animation mb-8">
+                        <i class="fas fa-bullseye text-6xl md:text-8xl text-yellow-400 mb-6"></i>
+                    </div>
+                    <h2 class="text-4xl md:text-7xl font-bold mb-6">Visi & Misi</h2>
+                    <p class="text-lg md:text-2xl mb-8 leading-relaxed">
+                        Membangun generasi yang aspiratif, kreatif, dan berprestasi untuk masa depan yang gemilang
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="about2.html" class="btn-primary text-white px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center">
+                            <i class="fas fa-arrow-right mr-2"></i>
+                            Pelajari Lebih Lanjut
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide bg-gradient-to-r from-purple-800 via-blue-800 to-indigo-900 flex items-center justify-center">
+                <div class="text-center text-white px-4 max-w-4xl mx-auto">
+                    <div class="floating-animation mb-8">
+                        <i class="fas fa-history text-6xl md:text-8xl text-yellow-400 mb-6"></i>
+                    </div>
+                    <h2 class="text-4xl md:text-7xl font-bold mb-6">Sejarah</h2>
+                    <p class="text-lg md:text-2xl mb-8 leading-relaxed">
+                        Perjalanan panjang OSIS PMK dalam membentuk karakter dan prestasi siswa/siswi
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="about2.html" class="btn-primary text-white px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center">
+                            <i class="fas fa-book mr-2"></i>
+                            Jelajahi Sejarah
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide bg-gradient-to-r from-green-700 via-teal-600 to-blue-700 flex items-center justify-center">
+                <div class="text-center text-white px-4 max-w-4xl mx-auto">
+                    <div class="floating-animation mb-8">
+                        <i class="fas fa-lightbulb text-6xl md:text-8xl text-yellow-400 mb-6"></i>
+                    </div>
+                    <h2 class="text-4xl md:text-7xl font-bold mb-6">Produk</h2>
+                    <p class="text-lg md:text-2xl mb-8 leading-relaxed">
+                        Inovasi dan karya terbaik dari siswa-siswi PMK untuk kemajuan sekolah dan masyarakat
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="produk2.html" class="btn-primary text-white px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center">
+                            <i class="fas fa-rocket mr-2"></i>
+                            Lihat Produk
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide bg-gradient-to-r from-orange-700 via-red-600 to-pink-700 flex items-center justify-center">
+                <div class="text-center text-white px-4 max-w-4xl mx-auto">
+                    <div class="floating-animation mb-8">
+                        <i class="fas fa-envelope text-6xl md:text-8xl text-yellow-400 mb-6"></i>
+                    </div>
+                    <h2 class="text-4xl md:text-7xl font-bold mb-6">Kontak</h2>
+                    <p class="text-lg md:text-2xl mb-8 leading-relaxed">
+                        Hubungi kami untuk berkolaborasi, bertanya, atau memberikan saran dan masukan
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="kontak2.html" class="btn-primary text-white px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            Hubungi Kami
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-20 left-0 w-full bg-white bg-opacity-20">
+            <div id="sliderProgress" class="slider-progress"></div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <button onclick="changeSlide(0)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300"></button>
+            <button onclick="changeSlide(1)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300"></button>
+            <button onclick="changeSlide(2)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300"></button>
+            <button onclick="changeSlide(3)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300"></button>
+        </div>
+        
+        <!-- Slider Navigation -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-yellow-400 transition-colors">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-yellow-400 transition-colors">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    Selamat Datang di <span class="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">OSIS PMK ASPIRASI</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Organisasi Siswa Intra Sekolah yang berkomitmen untuk mengembangkan potensi siswa, 
+                    memfasilitasi aspirasi, dan menciptakan lingkungan sekolah yang kondusif untuk belajar dan berkarya.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Visi & Misi Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-8 text-center fade-in">
+                    <div class="bg-gradient-to-br from-blue-100 to-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bullseye text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Visi & Misi</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Menjadi organisasi siswa yang aspiratif, inovatif, dan berprestasi dalam membentuk generasi muda berkarakter.
+                    </p>
+                    <a href="about2.html#visi misi" class="btn-secondary bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 inline-flex items-center">
+                        Baca Selengkapnya
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-8 text-center fade-in">
+                    <div class="bg-gradient-to-br from-purple-100 to-purple-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-history text-purple-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Tentang kami</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Perjalanan panjang OSIS PMK dalam membentuk karakter dan prestasi siswa-siswi terbaik.
+                    </p>
+                    <a href="about2.html" class="btn-secondary bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 inline-flex items-center">
+                        Baca Selengkapnya
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-8 text-center fade-in">
+                    <div class="bg-gradient-to-br from-green-100 to-green-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-lightbulb text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Produk</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Inovasi dan karya terbaik dari siswa-siswi PMK untuk kemajuan sekolah dan kontribusi pada masyarakat.
+                    </p>
+                    <a href="produk2.html" class="btn-secondary bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700 inline-flex items-center">
+                        Baca Selengkapnya
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-8 text-center fade-in">
+                    <div class="bg-gradient-to-br from-orange-100 to-orange-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-envelope text-orange-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Kontak</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Hubungi kami untuk berkolaborasi, bertanya, atau memberikan saran dan masukan yang membangun.
+                    </p>
+                    <a href="kontak2.html" class="btn-secondary bg-orange-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-700 inline-flex items-center">
+                        Baca Selengkapnya
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 gradient-bg">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                    Mari Bergabung Bersama Kami
+                </h2>
+                <p class="text-xl text-blue-100 mb-8 leading-relaxed">
+                    Jadilah bagian dari perubahan positif di sekolah. Suarakan aspirasi Anda dan wujudkan ide-ide kreatif bersama OSIS PMK ASPIRASI.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="kontak2.html" class="btn-secondary bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 inline-flex items-center justify-center">
+                        <i class="fas fa-users mr-2"></i>
+                        Bergabung Sekarang
+                    </a>
+                    <a href="about2.html#visi-misi" class="btn-secondary border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-600 inline-flex items-center justify-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Pelajari Lebih Lanjut
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-yellow-400 bg-clip-text text-transparent">
+                        OSIS PMK ASPIRASI
+                    </h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Organisasi Siswa Intra Sekolah yang aspiratif, kreatif, dan berprestasi untuk masa depan yang gemilang.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Navigasi</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="about2.html" class="hover:text-white transition-colors">Visi & Misi</a></li>
+                        <li><a href="produk2.html" class="hover:text-white transition-colors">Produk</a></li>
+                        <li><a href="kontak2.html" class="hover:text-white transition-colors">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Kontak</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            osis@pmk.sch.id
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            (021) 123-4567
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            Karawang, Indonesia
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Media Sosial</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-pink-400 transition-colors text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-red-400 transition-colors text-2xl">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 OSIS PMK ASPIRASI. Semua hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        let slideInterval;
+        let progressInterval;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSlider();
+            initializeAnimations();
+        });
+
+        function initializeSlider() {
+            updateSliderDots();
+            startAutoSlide();
+        }
+
+        function changeSlide(index) {
+            clearInterval(slideInterval);
+            clearInterval(progressInterval);
+            
+            const slides = document.querySelectorAll('.slide');
+            const progressBar = document.getElementById('sliderProgress');
+            
+            slides[currentSlide].classList.remove('active');
+            slides[currentSlide].classList.add('prev');
+            
+            currentSlide = index;
+            slides[currentSlide].classList.remove('prev');
+            slides[currentSlide].classList.add('active');
+            
+            progressBar.classList.remove('active');
+            setTimeout(() => {
+                progressBar.classList.add('active');
+            }, 100);
+            
+            updateSliderDots();
+            startAutoSlide();
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % 4;
+            changeSlide(nextIndex);
+        }
+
+        function prevSlide() {
+            const prevIndex = (currentSlide - 1 + 4) % 4;
+            changeSlide(prevIndex);
+        }
+
+        function startAutoSlide() {
+            const progressBar = document.getElementById('sliderProgress');
+            progressBar.classList.add('active');
+            
+            slideInterval = setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
+
+        function updateSliderDots() {
+            const dots = document.querySelectorAll('.slider-dot');
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('bg-opacity-100');
+                    dot.classList.remove('bg-opacity-50');
+                } else {
+                    dot.classList.add('bg-opacity-50');
+                    dot.classList.remove('bg-opacity-100');
+                }
+            });
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function initializeAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        document.querySelector('.slider-container').addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+            document.getElementById('sliderProgress').style.animationPlayState = 'paused';
+        });
+
+        document.querySelector('.slider-container').addEventListener('mouseleave', () => {
+            startAutoSlide();
+            document.getElementById('sliderProgress').style.animationPlayState = 'running';
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9863ad5f4425b5e1',t:'MTc1OTA2NzA4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
