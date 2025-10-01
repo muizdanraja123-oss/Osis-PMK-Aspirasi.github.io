@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIS PMK ASPIRASI - Video Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1e3a8a, #fbbf24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .brand-text {
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #fbbf24;
+        }
+
+        .nav-link.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #fbbf24;
+            border-color: #fbbf24;
+            color: #1e3a8a;
+            transform: translateY(-2px);
+        }
+
+        /* Video Gallery */
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #000;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-category {
+            background: #fbbf24;
+            color: #1e3a8a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-date {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .upload-section.show {
+            display: block;
+        }
+
+        .upload-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #1e3a8a;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e3a8a;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-title {
+            color: #1e3a8a;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .login-submit {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .login-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        /* User Info */
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info.show {
+            display: flex;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .video-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .filter-section {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .video-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <div class="logo">PMK</div>
+                <div class="brand-text">OSIS PMK ASPIRASI</div>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Beranda</a>
+                <a href="#" class="nav-link active">Video</a>
+                <a href="about2.html" class="nav-link">Tentang</a>
+                <a href="produk2.html" class="nav-link">Produk</a>
+                <a href="kontak2.html" class="nav-link">Kontak</a>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <span id="userName">Admin</span>
+                    <button class="logout-btn" id="logoutBtn">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">Galeri Video OSIS</h1>
+        <p class="page-subtitle">Dokumentasi kegiatan OSIS PMK Aspirasi dalam format video pendek</p>
+
+        <!-- Upload Section (Hidden by default) -->
+        <section class="upload-section" id="uploadSection">
+            <h2 style="color: #1e3a8a; margin-bottom: 1rem;">Upload Video Baru</h2>
+            <form class="upload-form" id="uploadForm">
+                <div class="form-group">
+                    <label class="form-label">Judul Video</label>
+                    <input type="text" class="form-input" id="videoTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kategori</label>
+                    <select class="form-select" id="videoCategory" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="Edukasi">Edukasi</option>
+                        <option value="Sosial">Sosial</option>
+                        <option value="Keagamaan">Keagamaan</option>
+                        <option value="Olahraga">Olahraga</option>
+                        <option value="Seni">Seni & Budaya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea class="form-textarea" id="videoDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">File Video</label>
+                    <input type="file" class="form-input" id="videoFile" accept="video/*" required>
+                </div>
+                <button type="submit" class="upload-btn">Upload Video</button>
+            </form>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <button class="filter-btn active" data-category="all">Semua</button>
+            <button class="filter-btn" data-category="Edukasi">Edukasi</button>
+            <button class="filter-btn" data-category="Sosial">Sosial</button>
+            <button class="filter-btn" data-category="Keagamaan">Keagamaan</button>
+            <button class="filter-btn" data-category="Olahraga">Olahraga</button>
+            <button class="filter-btn" data-category="Seni">Seni & Budaya</button>
+        </section>
+
+        <!-- Video Gallery -->
+        <section class="video-gallery" id="videoGallery">
+            <!-- Videos will be populated by JavaScript -->
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 class="modal-title">Login Anggota OSIS</h2>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="password" required>
+                </div>
+                <button type="submit" class="login-submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample video data
+        const sampleVideos = [
+            {
+                id: 1,
+                title: "Kegiatan Bakti Sosial",
+                category: "Sosial",
+                description: "Dokumentasi kegiatan bakti sosial OSIS di panti asuhan",
+                date: "2024-01-15",
+                thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='400' viewBox='0 0 280 400'%3E%3Crect width='280' height='400' fill='%231e3a8a'/%3E%3Ctext x='140' y='200' text-anchor='middle' fill='white' font-size='16' font-family='Poppins'%3EBakti Sosial%3C/text%3E%3C/svg%3E"
+            },
+            {
+                id: 2,
+                title: "Workshop Kepemimpinan",
+                category: "Edukasi",
+                description: "Pelatihan kepemimpinan untuk anggota OSIS baru",
+                date: "2024-01-20",
+                thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='400' viewBox='0 0 280 400'%3E%3Crect width='280' height='400' fill='%23fbbf24'/%3E%3Ctext x='140' y='200' text-anchor='middle' fill='%231e3a8a' font-size='16' font-family='Poppins'%3EWorkshop%3C/text%3E%3C/svg%3E"
+            },
+            {
+                id: 3,
+                title: "Peringatan Maulid Nabi",
+                category: "Keagamaan",
+                description: "Acara peringatan Maulid Nabi Muhammad SAW",
+                date: "2024-01-25",
+                thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='400' viewBox='0 0 280 400'%3E%3Crect width='280' height='400' fill='%2306b6d4'/%3E%3Ctext x='140' y='200' text-anchor='middle' fill='white' font-size='16' font-family='Poppins'%3EMaulid Nabi%3C/text%3E%3C/svg%3E"
+            },
+            {
+                id: 4,
+                title: "Turnamen Futsal",
+                category: "Olahraga",
+                description: "Kompetisi futsal antar kelas",
+                date: "2024-02-01",
+                thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='400' viewBox='0 0 280 400'%3E%3Crect width='280' height='400' fill='%2310b981'/%3E%3Ctext x='140' y='200' text-anchor='middle' fill='white' font-size='16' font-family='Poppins'%3ETurnamen Futsal%3C/text%3E%3C/svg%3E"
+            },
+            {
+                id: 5,
+                title: "Pentas Seni Budaya",
+                category: "Seni",
+                description: "Pertunjukan seni dan budaya siswa",
+                date: "2024-02-05",
+                thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='400' viewBox='0 0 280 400'%3E%3Crect width='280' height='400' fill='%23f59e0b'/%3E%3Ctext x='140' y='200' text-anchor='middle' fill='white' font-size='16' font-family='Poppins'%3EPentas Seni%3C/text%3E%3C/svg%3E"
+            },
+            {
+                id: 6,
+                title: "Seminar Motivasi",
+                category: "Edukasi",
+                description: "Seminar motivasi untuk siswa kelas 12",
+                date: "2024-02-10",
+                thumbnail: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='400' viewBox='0 0 280 400'%3E%3Crect width='280' height='400' fill='%238b5cf6'/%3E%3Ctext x='140' y='200' text-anchor='middle' fill='white' font-size='16' font-family='Poppins'%3ESeminar Motivasi%3C/text%3E%3C/svg%3E"
+            }
+        ];
+
+        let currentVideos = [...sampleVideos];
+        let isLoggedIn = false;
+        let currentUser = null;
+
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const modalClose = document.getElementById('modalClose');
+        const loginForm = document.getElementById('loginForm');
+        const userInfo = document.getElementById('userInfo');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const uploadSection = document.getElementById('uploadSection');
+        const uploadForm = document.getElementById('uploadForm');
+        const videoGallery = document.getElementById('videoGallery');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderVideos(currentVideos);
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Login modal
+            loginBtn.addEventListener('click', () => {
+                loginModal.classList.add('show');
+            });
+
+            modalClose.addEventListener('click', () => {
+                loginModal.classList.remove('show');
+            });
+
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('show');
+                }
+            });
+
+            // Login form
+            loginForm.addEventListener('submit', handleLogin);
+
+            // Logout
+            logoutBtn.addEventListener('click', handleLogout);
+
+            // Upload form
+            uploadForm.addEventListener('submit', handleUpload);
+
+            // Filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterVideos(btn.dataset.category);
+                });
+            });
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple authentication (in real app, this would be server-side)
+            if (username === 'admin' && password === 'osis2024') {
+                isLoggedIn = true;
+                currentUser = { username: 'admin', name: 'Admin OSIS' };
+                
+                loginModal.classList.remove('show');
+                loginBtn.style.display = 'none';
+                userInfo.classList.add('show');
+                uploadSection.classList.add('show');
+                
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0);
+                
+                loginForm.reset();
+            } else {
+                alert('Username atau password salah!');
+            }
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            currentUser = null;
+            
+            loginBtn.style.display = 'block';
+            userInfo.classList.remove('show');
+            uploadSection.classList.remove('show');
+        }
+
+        function handleUpload(e) {
+            e.preventDefault();
+            
+            if (!isLoggedIn) {
+                alert('Anda harus login terlebih dahulu!');
+                return;
+            }
+
+            const title = document.getElementById('videoTitle').value;
+            const category = document.getElementById('videoCategory').value;
+            const description = document.getElementById('videoDescription').value;
+            const file = document.getElementById('videoFile').files[0];
+
+            if (!file) {
+                alert('Pilih file video terlebih dahulu!');
+                return;
+            }
+
+            // Create new video object
+            const newVideo = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                description: description,
+                date: new Date().toISOString().split('T')[0],
+                thumbnail: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='400' viewBox='0 0 280 400'%3E%3Crect width='280' height='400' fill='%231e3a8a'/%3E%3Ctext x='140' y='200' text-anchor='middle' fill='white' font-size='14' font-family='Poppins'%3E${title}%3C/text%3E%3C/svg%3E`
+            };
+
+            // Add to videos array
+            currentVideos.unshift(newVideo);
+            sampleVideos.unshift(newVideo);
+
+            // Reset form and re-render
+            uploadForm.reset();
+            renderVideos(currentVideos);
+            
+            alert('Video berhasil diupload!');
+        }
+
+        function filterVideos(category) {
+            if (category === 'all') {
+                currentVideos = [...sampleVideos];
+            } else {
+                currentVideos = sampleVideos.filter(video => video.category === category);
+            }
+            renderVideos(currentVideos);
+        }
+
+        function renderVideos(videos) {
+            videoGallery.innerHTML = '';
+            
+            videos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <div class="video-container">
+                        <img src="${video.thumbnail}" alt="${video.title}" class="video-player">
+                        <div class="video-overlay">
+                            <div class="video-title">${video.title}</div>
+                            <span class="video-category">${video.category}</span>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-description">${video.description}</div>
+                        <div class="video-date">${formatDate(video.date)}</div>
+                    </div>
+                `;
+                videoGallery.appendChild(videoCard);
+            });
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        // Intersection Observer for video autoplay simulation
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Simulate autoplay by adding a subtle animation
+                    entry.target.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        entry.target.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            });
+        }, observerOptions);
+
+        // Observe video cards when they're rendered
+        function observeVideoCards() {
+            const videoCards = document.querySelectorAll('.video-card');
+            videoCards.forEach(card => observer.observe(card));
+        }
+
+        // Call observe function after rendering
+        setTimeout(observeVideoCards, 100);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'987984c721622925',t:'MTc1OTI5NjEwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
